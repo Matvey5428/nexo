@@ -318,131 +318,112 @@
 </head>
 <body>
 
-      <!-- Balance Card -->
-        <div class="card-custom text-center">
-            <div class="small-text mb-2">Общий баланс</div>
-            <div class="balance">$ 298.05</div>
+  <!-- Balance Card -->
+  <div class="card-custom text-center">
+    <div class="small-text mb-2">Общий баланс</div>
+    <div class="balance" id="totalBalance">$0.00</div>
 
-            <div class="action-wrapper mt-4">       
-                <div class="action-item">
-                    <button class="action-box">
-                        ↑
-                    </button>
-                    <div class="label">Пополнить</div>
-                </div>
-                <div class="action-item">
-                    <button class="action-box">
-                        ↓
-                    </button>
-                    <div class="label">Вывести</div>
-                </div>
-                <div class="action-item">
-                    <button class="action-box" onclick="window.location.href='exchange.html'">
-                        ⇄
-                    </button>
-                    <div class="label">Обменять</div>
-                </div>
-            </div>
+    <div class="action-wrapper mt-4">       
+      <div class="action-item">
+        <button class="action-box">↑</button>
+        <div class="label">Пополнить</div>
+      </div>
+      <div class="action-item">
+        <button class="action-box">↓</button>
+        <div class="label">Вывести</div>
+      </div>
+      <div class="action-item">
+        <button class="action-box" onclick="window.location.href='exchange.html'">⇄</button>
+        <div class="label">Обменять</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Section -->
+  <div class="profile-box">
+    <h6 class="mb-3">Профиль</h6>
+    <div class="mb-3">
+      <div class="fw-bold" id="userId">0</div>
+      <div class="small-text">ID аккаунта</div>
+    </div>
+    <div class="mb-3">
+      <div class="fw-bold" id="stats">0 / 0 / 0</div>
+      <div class="small-text">Статистика</div>
+    </div>
+    <div class="mb-3">
+      <div class="fw-bold" id="tradingVolume">0.00 USDT</div>
+      <div class="small-text">Объем торгов</div>
+    </div>
+    <div>
+      <div class="text-warning fw-bold" id="verification">Неизвестно</div>
+      <div class="small-text">Нажмите, чтобы пройти</div>
+    </div>
+  </div>
+
+  <!-- Валютные счета -->
+  <div class="section-card mt-4">
+    <h5 class="section-title">Валютные счета</h5>
+    <div class="asset-item">
+      <div class="asset-left">
+        <div class="coin gold">₽</div>
+        <div>
+          <div class="asset-name">Российский рубль</div>
+          <div class="asset-price">79.10 ₽</div>
         </div>
+      </div>
+      <div class="asset-right" id="rubBalance">0.00 ₽</div>
+    </div>
+  </div>
 
-      <!-- Profile Section -->
-        <div class="profile-box">
-            <h6 class="mb-3">Профиль</h6>
-            <div class="mb-3">
-                <div class="fw-bold">703924219</div>
-                <div class="small-text">ID аккаунта</div>
-            </div>
-            <div class="mb-3">
-                <div class="fw-bold">4 / <span class="text-success">4</span> / <span class="text-danger">0</span></div>
-                <div class="small-text">Статистика</div>
-            </div>
-            <div class="mb-3">
-                <div class="fw-bold">500.00 USDT</div>
-                <div class="small-text">Объем торгов</div>
-            </div>
-            <div>
-                <div class="text-warning fw-bold">Верификация не пройдена</div>
-                <div class="small-text">Нажмите, чтобы пройти</div>
-            </div>
+  <!-- Криптовалюты -->
+  <div class="section-card mt-4">
+    <h5 class="section-title">Криптовалюты</h5>
+
+    <div class="asset-item">
+      <div class="asset-left">
+        <div class="coin btc">₿</div>
+        <div>
+          <div class="asset-name">Bitcoin</div>
+          <div class="asset-price">68000.09 $</div>
         </div>
-        <!-- Валютные счета -->
-        <div class="section-card mt-4">
-            <h5 class="section-title">Валютные счета</h5>
+      </div>
+      <div class="asset-right" id="btcBalance">0.00 $</div>
+    </div>
 
-            <div class="asset-item">
-                <div class="asset-left">
-                    <div class="coin gold">₽</div>
-                    <div>
-                        <div class="asset-name">Российский рубль</div>
-                        <div class="asset-price">79.10 ₽</div>
-                    </div>
-                </div>
-                <div class="asset-right">
-                    0.00 ₽
-                </div>
-            </div>
+    <div class="asset-item">
+      <div class="asset-left">
+        <div class="coin ton">T</div>
+        <div>
+          <div class="asset-name">Toncoin</div>
+          <div class="asset-price">1.33 $</div>
         </div>
-            <!-- Криптовалюты -->
-        <div class="section-card mt-4">
-            <h5 class="section-title">Криптовалюты</h5>
+      </div>
+      <div class="asset-right" id="tonBalance">0.00 $</div>
+    </div>
 
-            <div class="asset-item">
-                <div class="asset-left">
-                    <div class="coin btc">₿</div>
-                    <div>
-                        <div class="asset-name">Bitcoin</div>
-                        <div class="asset-price">68000.09 $</div>
-                    </div>
-                </div>
-                <div class="asset-right">
-                    <div>0.00</div>
-                    <div class="fw-bold">0.00 $</div>
-                </div>
-            </div>
-
-            <div class="asset-item">
-                <div class="asset-left">
-                    <div class="coin ton">T</div>
-                    <div>
-                        <div class="asset-name">Toncoin</div>
-                        <div class="asset-price">1.33 $</div>
-                    </div>
-                </div>
-                <div class="asset-right">
-                    <div>0.00</div>
-                    <div class="fw-bold">0.00 $</div>
-                </div>
-            </div>
-
-            <div class="asset-item">
-                <div class="asset-left">
-                    <div class="coin eth">◆</div>
-                    <div>
-                        <div class="asset-name">Ethereum</div>
-                        <div class="asset-price">1970.11 $</div>
-                    </div>
-                </div>
-                <div class="asset-right">
-                    <div>0.00</div>
-                    <div class="fw-bold">0.00 $</div>
-                </div>
-            </div>
-
-            <div class="asset-item">
-                <div class="asset-left">
-                    <div class="coin usdt">₮</div>
-                    <div>
-                        <div class="asset-name">Tether</div>
-                        <div class="asset-price">1 $</div>
-                    </div>
-                </div>
-                <div class="asset-right">
-                    <div>297.67</div>
-                    <div class="fw-bold">297.67 $</div>
-                </div>
-            </div>
+    <div class="asset-item">
+      <div class="asset-left">
+        <div class="coin eth">◆</div>
+        <div>
+          <div class="asset-name">Ethereum</div>
+          <div class="asset-price">1970.11 $</div>
         </div>
-        <div class="reviews-section">
+      </div>
+      <div class="asset-right" id="ethBalance">0.00 $</div>
+    </div>
+
+    <div class="asset-item">
+      <div class="asset-left">
+        <div class="coin usdt">₮</div>
+        <div>
+          <div class="asset-name">Tether</div>
+          <div class="asset-price">1 $</div>
+        </div>
+      </div>
+      <div class="asset-right" id="usdtBalance">0.00 $</div>
+    </div>
+  </div>
+  <div class="reviews-section">
 
             <div class="section-title">Отзывы клиентов</div>
             <div class="section-subtitle">Что говорят пользователи о платформе.</div>
@@ -525,6 +506,41 @@
             </div>
         </div>
     </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Скрипт для подгрузки данных -->
+  <script>
+    const userId = 703924219;
+
+    async function loadUserData() {
+      try {
+        const res = await fetch(`http://127.0.0.1:5000/user/${userId}`);
+        const data = await res.json();
+
+        // Профиль
+        document.getElementById('userId').textContent = userId;
+        document.getElementById('stats').textContent = `${data.total_trades} / ${data.success_trades} / ${data.failed_trades}`;
+        document.getElementById('tradingVolume').textContent = `${data.trading_volume.toFixed(2)} USDT`;
+        document.getElementById('verification').textContent = data.verified ? 'Верификация пройдена' : 'Верификация не пройдена';
+
+        // Баланс общий
+        const total = data.rub + data.btc + data.eth + data.ton + data.usdt;
+        document.getElementById('totalBalance').textContent = `$${total.toFixed(2)}`;
+
+        // Валюты
+        document.getElementById('rubBalance').textContent = `${data.rub.toFixed(2)} ₽`;
+        document.getElementById('btcBalance').textContent = `${data.btc.toFixed(6)} $`;
+        document.getElementById('ethBalance').textContent = `${data.eth.toFixed(6)} $`;
+        document.getElementById('tonBalance').textContent = `${data.ton.toFixed(6)} $`;
+        document.getElementById('usdtBalance').textContent = `${data.usdt.toFixed(2)} $`;
+
+      } catch (e) {
+        console.error('Ошибка при загрузке данных:', e);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadUserData);
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
