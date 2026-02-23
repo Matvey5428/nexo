@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nexo Trade</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(180deg, #0f1b3d, #121a35);
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .card-custom {
+      background: linear-gradient(180deg, #1e2a55, #1a2447);
+      border: none;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .balance {
+      font-size: 32px;
+      font-weight: bold;
+      color: #4db8ff;
+    }
+
+    .action-wrapper{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    flex-wrap:wrap;
+}
+
+.action-item{
+    text-align:center;
+}
+
+.action-box{
+    width:70px;
+    height:70px;
+    border-radius:18px;
+    background:#2b3e75;
+    border:none;
+    color:white;
+    font-size:22px;
+}
+
+/* ВАЖНО — запрещаем растягивание */
+.action-wrapper > *{
+    flex: 0 0 auto;
+}
+    .profile-box {
+      background: linear-gradient(180deg, #1e2a55, #1a2447);
+      border-radius: 20px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .small-text {
+      color: #9fb3ff;
+      font-size: 14px;
+    }
+
+    .section-card{
+    background: linear-gradient(180deg,#1a2755,#1d2f63);
+    padding:20px;
+    border-radius:20px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.25);
+}
+
+.section-title{
+    color:#69b7ff;
+    margin-bottom:20px;
+    position:relative;
+}
+
+.section-title::after{
+    content:"";
+    width:40px;
+    height:3px;
+    background:#69b7ff;
+    position:absolute;
+    bottom:-6px;
+    left:0;
+    border-radius:5px;
+}
+
+.asset-item{
+    background:#24366e;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:0.3s;
+}
+
+.asset-item:hover{
+    background:#2e4a9e;
+}
+
+.asset-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.asset-name{
+    font-weight:500;
+}
+
+.asset-price{
+    font-size:14px;
+    color:#9bbcff;
+}
+
+.asset-right{
+    text-align:right;
+}
+
+.coin{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    color:white;
+}
+
+.gold{ background:linear-gradient(45deg,#caa84f,#f4d06f); color:#000;}
+.btc{ background:#f7931a;}
+.ton{ background:#2da6ff;}
+.eth{ background:#888;}
+.usdt{ background:#26a17b;}
+
+/* Ограничение ширины как мобильное приложение */
+.container{
+    max-width:500px;
+}
+
+.reviews-section {
+      background: linear-gradient(180deg, #182848 0%, #0f1c3d 100%);
+      border-radius: 25px;
+      padding: 40px 30px;
+      color: #fff;
+      box-shadow: 0 0 40px rgba(0, 150, 255, 0.15);
+      max-width: 700px;
+      margin: 40px auto;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .section-subtitle {
+      color: #a0aec0;
+      margin-bottom: 30px;
+    }
+
+    .nav-btn {
+      width: 55px;
+      height: 55px;
+      border-radius: 12px;
+      border: 2px solid #3b82f6;
+      background: transparent;
+      color: #3b82f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      transition: 0.3s;
+    }
+
+    .nav-btn:hover {
+      background: #3b82f6;
+      color: #fff;
+    }
+
+    .review-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 20px 0;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 150, 255, 0.15);
+    }
+
+    .review-name {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .review-role {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .review-date {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .stars {
+      color: #38bdf8;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    .all-reviews-btn {
+      background: linear-gradient(90deg, #38bdf8, #3b82f6);
+      border: none;
+      border-radius: 12px;
+      padding: 12px 25px;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .all-reviews-btn:hover {
+      opacity: 0.9;
+    }
+
+    .reviews-footer {
+      margin-top: 20px;
+      color: #94a3b8;
+    }
+    .mobile-bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        font-family: inherit;
+    }
+
+    /* Кнопка */
+    .mobile-toggle {
+    width: 100%;
+    background: linear-gradient(180deg, #2a3f6b, #243b63);
+    color: #cfe9ff;
+    border: none;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -5px 30px rgba(0, 150, 255, 0.25);
+    }
+
+    /* Иконка */
+    .mobile-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+    /* Стрелка */
+    .mobile-arrow {
+    transition: 0.3s;
+    }
+
+    .mobile-toggle[aria-expanded="true"] .mobile-arrow {
+    transform: rotate(180deg);
+    }
+
+    /* Контент */
+    .mobile-content {
+    background: linear-gradient(180deg, #182848 0%, #101c3a 100%);
+    padding: 20px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    }
+
+    /* Пункты */
+    .mobile-item {
+    padding: 14px 15px;
+    border-radius: 12px;
+    color: #cfe9ff;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    }
+
+    .mobile-item:hover {
+    background: rgba(255,255,255,0.05);
+    }
+
+    .mobile-item.active {
+    background: rgba(100, 170, 255, 0.2);
+    }
+
+    .mobile-item.disabled {
+    opacity: 0.6;
+    cursor: default;
+    }
+
+    /* Бейдж */
+    .mobile-badge {
+    background: rgba(255, 140, 0, 0.15);
+    color: #ff9800;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+    <div class="container py-4">
+    
+      <!-- Header -->
+        <div class="text-center mb-4">
+            <h5 class="fw-bold">Nexo Trade</h5>
+            <div class="small-text">Мини-приложение</div>
+        </div>
+    
+      <!-- Balance Card -->
+        <div class="card-custom text-center">
+            <div class="small-text mb-2">Общий баланс</div>
+            <div class="balance">$ 298.05</div>
+    
+            <div class="action-wrapper mt-4">       
+                <div class="action-item">
+                    <button class="action-box">
+                        ↑
+                    </button>
+                    <div class="label">Пополнить</div>
+                </div>
+                <div class="action-item">
+                    <button class="action-box">
+                        ↓
+                    </button>
+                    <div class="label">Вывести</div>
+                </div>
+                <div class="action-item">
+                    <button class="action-box">
+                        ⇄
+                    </button>
+                    <div class="label">Обменять</div>
+                </div>
+            </div>
+        </div>
+    
+      <!-- Profile Section -->
+        <div class="profile-box">
+            <h6 class="mb-3">Профиль</h6>
+            <div class="mb-3">
+                <div class="fw-bold">703924219</div>
+                <div class="small-text">ID аккаунта</div>
+            </div>
+            <div class="mb-3">
+                <div class="fw-bold">4 / <span class="text-success">4</span> / <span class="text-danger">0</span></div>
+                <div class="small-text">Статистика</div>
+            </div>
+            <div class="mb-3">
+                <div class="fw-bold">500.00 USDT</div>
+                <div class="small-text">Объем торгов</div>
+            </div>
+            <div>
+                <div class="text-warning fw-bold">Верификация не пройдена</div>
+                <div class="small-text">Нажмите, чтобы пройти</div>
+            </div>
+        </div>
+        <!-- Валютные счета -->
+        <div class="section-card mt-4">
+            <h5 class="section-title">Валютные счета</h5>
+
+            <div class="asset-item">
+                <div class="asset-left">
+                    <div class="coin gold">₽</div>
+                    <div>
+                        <div class="asset-name">Российский рубль</div>
+                        <div class="asset-price">79.10 ₽</div>
+                    </div>
+                </div>
+                <div class="asset-right">
+                    0.00 ₽
+                </div>
+            </div>
+        </div>
+<!-- Криптовалюты -->
+        <div class="section-card mt-4">
+            <h5 class="section-title">Криптовалюты</h5>
+
+            <div class="asset-item">
+                <div class="asset-left">
+                    <div class="coin btc">₿</div>
+                    <div>
+                        <div class="asset-name">Bitcoin</div>
+                        <div class="asset-price">68000.09 $</div>
+                    </div>
+                </div>
+                <div class="asset-right">
+                    <div>0.00</div>
+                    <div class="fw-bold">0.00 $</div>
+                </div>
+            </div>
+
+            <div class="asset-item">
+                <div class="asset-left">
+                    <div class="coin ton">T</div>
+                    <div>
+                        <div class="asset-name">Toncoin</div>
+                        <div class="asset-price">1.33 $</div>
+                    </div>
+                </div>
+                <div class="asset-right">
+                    <div>0.00</div>
+                    <div class="fw-bold">0.00 $</div>
+                </div>
+            </div>
+
+            <div class="asset-item">
+                <div class="asset-left">
+                    <div class="coin eth">◆</div>
+                    <div>
+                        <div class="asset-name">Ethereum</div>
+                        <div class="asset-price">1970.11 $</div>
+                    </div>
+                </div>
+                <div class="asset-right">
+                    <div>0.00</div>
+                    <div class="fw-bold">0.00 $</div>
+                </div>
+            </div>
+
+            <div class="asset-item">
+                <div class="asset-left">
+                    <div class="coin usdt">₮</div>
+                    <div>
+                        <div class="asset-name">Tether</div>
+                        <div class="asset-price">1 $</div>
+                    </div>
+                </div>
+                <div class="asset-right">
+                    <div>297.67</div>
+                    <div class="fw-bold">297.67 $</div>
+                </div>
+            </div>
+        </div>
+        <div class="reviews-section">
+
+            <div class="section-title">Отзывы клиентов</div>
+            <div class="section-subtitle">Что говорят пользователи о платформе.</div>
+
+            <button class="nav-btn mb-3">
+                ←
+            </button>
+
+            <div class="review-card">
+                <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="review-name">Анна Смирнова</div>
+                    <div class="review-role">Инвестор</div>
+                </div>
+                <div class="review-date">18.10.2025</div>
+                </div>
+
+                <p class="mt-3 mb-2">
+                Удобный интерфейс и быстрые операции. Стейкинг понятный,
+                выплаты приходят вовремя.
+                </p>
+
+                <div class="stars">
+                ★★★★★
+                </div>
+            </div>
+
+            <button class="nav-btn mb-3">
+                →
+            </button>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="reviews-footer">
+                Отзывы 1 из 36
+                </div>
+
+                <button class="all-reviews-btn">
+                Все отзывы
+                </button>
+            </div>
+
+        </div>
+        <!-- Bootstrap 5 -->
+        <div class="mobile-bottom-nav">
+            <button class="mobile-toggle collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mobileMenu"
+                        aria-expanded="false">
+
+                    <div class="d-flex align-items-center gap-2">
+                    <div class="mobile-icon">💰</div>
+                    <span>Активы</span>
+                    </div>
+
+                    <div class="mobile-arrow">⌃</div>
+
+            </button>
+            <div class="collapse" id="mobileMenu">
+                    <div class="mobile-content">
+
+                    <div class="mobile-item active">
+                        💰 Активы
+                    </div>
+
+                    <div class="mobile-item">
+                        📊 Торговля
+                    </div>
+
+                    <div class="mobile-item">
+                        📦 Стейкинг
+                    </div>
+
+                    <div class="mobile-item disabled d-flex justify-content-between">
+                        <span>📦 Бинарные опционы</span>
+                        <span class="mobile-badge">В разработке</span>
+                    </div>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
