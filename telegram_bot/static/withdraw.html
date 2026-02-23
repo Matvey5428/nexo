@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вывод средств - Nexo Trade</title>
+<style>
+/* --- СТИЛИ ОСТАЮТСЯ ТВОИ --- */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, #0b1023, #111a3a);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    width: 350px;
+    background: linear-gradient(180deg, #1c254d, #1a2145);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(0, 150, 255, 0.3);
+    position: relative;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.balance {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+button {
+    background: linear-gradient(90deg, #3da9ff, #6ecbff);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button:hover {
+    opacity: 0.8;
+}
+.input-group {
+    margin-bottom: 15px;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #3da9ff;
+    background: transparent;
+    color: white;
+}
+/* Сообщение поверх */
+.message {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff4c4c;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 12px;
+    display: none;
+    font-size: 14px;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="message" id="message">Недостаточно средств!</div>
+
+    <button class="back-btn" onclick="goBack()">Назад</button>
+
+    <h1>Nexo Trade</h1>
+
+    <div class="balance">
+        Баланс: <span id="balance">0.00</span>
+        <button onclick="loadUserData()">Обновить</button>
+    </div>
+
+    <div class="input-group">
+        <label>Сумма</label>
+        <input type="number" id="withdrawAmount" placeholder="Введите сумму">
+    </div>
+
+    <div class="input-group">
+        <label>Карта</label>
+        <input type="text" placeholder="Введите номер карты">
+    </div>
+
+    <div class="input-group">
+        <label>ФИО</label>
+        <input type="text" placeholder="Введите ФИО">
+    </div>
+
+    <button class="footer-btn" onclick="withdraw()">Вывести</button>
+</div>
+
+<script>
+const userId = 703924219; // Telegram ID пользователя
+let rubBalance = 0;
+let usdtBalance = 0;
+
+// Подгружаем баланс пользователя
+async function loadUserData() {
+    try {
+        const res = await fetch(`http://127.0.0.1:5000/user/${userId}`);
+        const data = await res.json();
+        rubBalance = data.rub;
+        usdtBalance = data.usdt;
+
+        document.getElementById('balance').textContent = `${rubBalance.toFixed(2)} ₽ | ${usdtBalance.toFixed(2)} $`;
+    } catch (err) {
+        console.error('Ошибка загрузки данных пользователя:', err);
+    }
+}
+
+// Проверка и вывод
+function withdraw() {
+    const amount = parseFloat(document.getElementById('withdrawAmount').value) || 0;
+
+    if (amount <= 0) {
+        showMessage("Введите корректную сумму!");
+        return;
+    }
+
+    // Проверяем баланс: рубли и USDT одновременно
+    if (rubBalance <= 0 && usdtBalance <= 0) {
+        showMessage("Недостаточно средств!");
+        return;
+    }
+
+    // Можно здесь добавить реальный POST-запрос на сервер
+    showMessage(`Вывод ${amount.toFixed(2)} успешно выполнен!`, true);
+
+    // Для наглядности обновляем локально баланс
+    rubBalance = Math.max(0, rubBalance - amount);
+    usdtBalance = Math.max(0, usdtBalance - amount);
+    document.getElementById('balance').textContent = `${rubBalance.toFixed(2)} ₽ | ${usdtBalance.toFixed(2)} $`;
+}
+
+// Показ сообщения на 8 секунд
+function showMessage(text, success=false) {
+    const msg = document.getElementById('message');
+    msg.textContent = text;
+    msg.style.background = success ? '#38bdf8' : '#ff4c4c';
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 8000);
+}
+
+// Загружаем данные при старте
+window.addEventListener('DOMContentLoaded', loadUserData);
+
+function goBack() {
+    history.back();
+}
+</script>
+
+</body>
+</html>

@@ -328,10 +328,12 @@
         <button class="action-box">↑</button>
         <div class="label">Пополнить</div>
       </div>
-      <div class="action-item">
-        <button class="action-box">↓</button>
-        <div class="label">Вывести</div>
-      </div>
+        <div class="action-item">
+            <button class="action-box" onclick="window.location.href='withdraw.html'">
+                ↓
+            </button>
+            <div class="label">Вывести</div>
+        </div>
       <div class="action-item">
         <button class="action-box" onclick="window.location.href='exchange.html'">⇄</button>
         <div class="label">Обменять</div>
@@ -339,170 +341,151 @@
     </div>
   </div>
 
-  <!-- Profile Section -->
-  <div class="profile-box">
-    <h6 class="mb-3">Профиль</h6>
-    <div class="mb-3">
-      <div class="fw-bold" id="userId">0</div>
-      <div class="small-text">ID аккаунта</div>
-    </div>
-    <div class="mb-3">
-      <div class="fw-bold" id="stats">0 / 0 / 0</div>
-      <div class="small-text">Статистика</div>
-    </div>
-    <div class="mb-3">
-      <div class="fw-bold" id="tradingVolume">0.00 USDT</div>
-      <div class="small-text">Объем торгов</div>
-    </div>
-    <div>
-      <div class="text-warning fw-bold" id="verification">Неизвестно</div>
-      <div class="small-text">Нажмите, чтобы пройти</div>
-    </div>
-  </div>
-
-  <!-- Валютные счета -->
-  <div class="section-card mt-4">
-    <h5 class="section-title">Валютные счета</h5>
-    <div class="asset-item">
-      <div class="asset-left">
-        <div class="coin gold">₽</div>
-        <div>
-          <div class="asset-name">Российский рубль</div>
-          <div class="asset-price">79.10 ₽</div>
+    <!-- Profile Section -->
+    <div class="profile-box">
+        <h6 class="mb-3">Профиль</h6>
+        <div class="mb-3">
+            <div class="fw-bold" id="userId">0</div>
+            <div class="small-text">ID аккаунта</div>
         </div>
-      </div>
-      <div class="asset-right" id="rubBalance">0.00 ₽</div>
-    </div>
-  </div>
-
-  <!-- Криптовалюты -->
-  <div class="section-card mt-4">
-    <h5 class="section-title">Криптовалюты</h5>
-
-    <div class="asset-item">
-      <div class="asset-left">
-        <div class="coin btc">₿</div>
-        <div>
-          <div class="asset-name">Bitcoin</div>
-          <div class="asset-price">68000.09 $</div>
+        <div class="mb-3">
+            <div class="fw-bold" id="stats">0 / 0 / 0</div>
+            <div class="small-text">Статистика</div>
         </div>
-      </div>
-      <div class="asset-right" id="btcBalance">0.00 $</div>
-    </div>
-
-    <div class="asset-item">
-      <div class="asset-left">
-        <div class="coin ton">T</div>
-        <div>
-          <div class="asset-name">Toncoin</div>
-          <div class="asset-price">1.33 $</div>
+        <div class="mb-3">
+            <div class="fw-bold" id="tradingVolume">0.00 USDT</div>
+            <div class="small-text">Объем торгов</div>
         </div>
-      </div>
-      <div class="asset-right" id="tonBalance">0.00 $</div>
-    </div>
-
-    <div class="asset-item">
-      <div class="asset-left">
-        <div class="coin eth">◆</div>
         <div>
-          <div class="asset-name">Ethereum</div>
-          <div class="asset-price">1970.11 $</div>
+            <div class="text-warning fw-bold" id="verification">Неизвестно</div>
+            <div class="small-text">Нажмите, чтобы пройти</div>
         </div>
-      </div>
-      <div class="asset-right" id="ethBalance">0.00 $</div>
     </div>
 
-    <div class="asset-item">
-      <div class="asset-left">
-        <div class="coin usdt">₮</div>
-        <div>
-          <div class="asset-name">Tether</div>
-          <div class="asset-price">1 $</div>
+    <!-- Валютные счета -->
+    <div class="section-card mt-4">
+        <h5 class="section-title">Валютные счета</h5>
+        <div class="asset-item">
+            <div class="asset-left">
+                <div class="coin gold">₽</div>
+                <div>
+                    <div class="asset-name">Российский рубль</div>
+                    <div class="asset-price">79.10 ₽</div>
+                </div>
+            </div>
+            <div class="asset-right" id="rubBalance">0.00 ₽</div>
         </div>
-      </div>
-      <div class="asset-right" id="usdtBalance">0.00 $</div>
     </div>
-  </div>
-  <div class="reviews-section">
 
+    <!-- Криптовалюты -->
+    <div class="section-card mt-4">
+        <h5 class="section-title">Криптовалюты</h5>
+        <div class="asset-item">
+            <div class="asset-left">
+                <div class="coin btc">₿</div>
+                <div>
+                    <div class="asset-name">Bitcoin</div>
+                    <div class="asset-price">68000.09 $</div>
+                </div>
+            </div>
+            <div class="asset-right" id="btcBalance">0.00 $</div>
+        </div>
+        <div class="asset-item">
+            <div class="asset-left">
+                <div class="coin ton">T</div>
+                <div>
+                    <div class="asset-name">Toncoin</div>
+                    <div class="asset-price">1.33 $</div>
+                </div>
+            </div>
+            <div class="asset-right" id="tonBalance">0.00 $</div>
+        </div>
+        <div class="asset-item">
+            <div class="asset-left">
+                <div class="coin eth">◆</div>
+                <div>
+                    <div class="asset-name">Ethereum</div>
+                    <div class="asset-price">1970.11 $</div>
+                </div>
+            </div>
+            <div class="asset-right" id="ethBalance">0.00 $</div>
+        </div>
+
+        <div class="asset-item">
+        <div class="asset-left">
+            <div class="coin usdt">₮</div>
+            <div>
+                <div class="asset-name">Tether</div>
+                <div class="asset-price">1 $</div>
+            </div>
+        </div>
+                <div class="asset-right" id="usdtBalance">0.00 $</div>
+            </div>
+    </div>
+    <div class="reviews-section">
             <div class="section-title">Отзывы клиентов</div>
             <div class="section-subtitle">Что говорят пользователи о платформе.</div>
-
             <button class="nav-btn mb-3">
                 ←
             </button>
-
             <div class="review-card">
                 <div class="d-flex justify-content-between align-items-start">
-                <div>
-                    <div class="review-name">Анна Смирнова</div>
-                    <div class="review-role">Инвестор</div>
+                    <div>
+                        <div class="review-name">Анна Смирнова</div>
+                        <div class="review-role">Инвестор</div>
+                    </div>
+                        <div class="review-date">18.10.2025</div>
                 </div>
-                <div class="review-date">18.10.2025</div>
-                </div>
-
                 <p class="mt-3 mb-2">
-                Удобный интерфейс и быстрые операции. Стейкинг понятный,
-                выплаты приходят вовремя.
+                    Удобный интерфейс и быстрые операции. Стейкинг понятный,
+                    выплаты приходят вовремя.
                 </p>
-
                 <div class="stars">
-                ★★★★★
+                    ★★★★★
                 </div>
             </div>
-
             <button class="nav-btn mb-3">
                 →
             </button>
-
             <div class="d-flex justify-content-between align-items-center">
                 <div class="reviews-footer">
-                Отзывы 1 из 36
+                    Отзывы 1 из 36
                 </div>
-
                 <button class="all-reviews-btn">
-                Все отзывы
+                    Все отзывы
                 </button>
             </div>
-
         </div>
         <!-- Bootstrap 5 -->
         <div class="mobile-bottom-nav">
             <button class="mobile-toggle collapsed"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#mobileMenu"
-                        aria-expanded="false">
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mobileMenu"
+                aria-expanded="false">
 
-                    <div class="d-flex align-items-center gap-2">
+                <div class="d-flex align-items-center gap-2">
                     <div class="mobile-icon">💰</div>
                     <span>Активы</span>
-                    </div>
-
-                    <div class="mobile-arrow">⌃</div>
-
+                </div>
+                <div class="mobile-arrow">⌃</div>
             </button>
             <div class="collapse" id="mobileMenu">
                     <div class="mobile-content">
-
                     <div class="mobile-item active">
                         💰 Активы
                     </div>
-
                     <div class="mobile-item">
                         📊 Торговля
                     </div>
-
                     <div class="mobile-item">
                         📦 Стейкинг
                     </div>
-
                     <div class="mobile-item disabled d-flex justify-content-between">
                         <span>📦 Бинарные опционы</span>
                         <span class="mobile-badge">В разработке</span>
                     </div>
-
-                    </div>
+                </div>
             </div>
         </div>
     </div>

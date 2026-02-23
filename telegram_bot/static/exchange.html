@@ -151,6 +151,31 @@ body{
     background:linear-gradient(180deg,#9dd0ff,#6ba9ff);
     box-shadow:0 8px 20px rgba(80,140,255,.5);
 }
+/* ===== ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ ===== */
+#topAlert{
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    min-width: 320px;
+    max-width: 90%;
+    padding: 14px 18px;
+    background: linear-gradient(180deg,#ff4d4f,#d9363e);
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.35s ease;
+    z-index: 9999;
+}
+
+#topAlert.show{
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
 </style>
 </head>
 
@@ -195,11 +220,23 @@ body{
     </div>
 
     <button class="exchange-btn">Обменять</button>
-    
 </div>
+<div id="topAlert"></div>
+<div id="topAlert" style="
+    display:none;
+    background:#ff4d4f;
+    color:white;
+    padding:12px;
+    border-radius:12px;
+    margin-bottom:12px;
+    text-align:center;
+    font-weight:500;
+    animation: fadeIn 0.3s ease;
+"></div>
  
 <script>
-const userId = 703924219; // Telegram ID пользователя
+const userId = 703924219;
+
 const amountInput = document.getElementById('amountInput');
 const rateText = document.getElementById('rateText');
 const exchangeTitle = document.getElementById('exchangeTitle');
@@ -207,13 +244,33 @@ const swapBtn = document.getElementById('swapBtn');
 const selectAllBtn = document.getElementById('selectAllBtn');
 const rubBalanceText = document.getElementById('rubBalanceText');
 const usdtBalanceText = document.getElementById('usdtBalanceText');
+const exchangeBtn = document.querySelector('.exchange-btn');
+const topAlert = document.getElementById('topAlert');
 
 let rubBalance = 0;
 let usdtBalance = 0;
-let rate = 0.012642; // курс по умолчанию
+let rate = 0.012642;
 let swapped = false;
+let alertTimeout = null;
 
-// --- Функция загрузки данных пользователя с Flask ---
+
+// ============================
+// Показать сообщение
+// ============================
+function showAlert(message){
+    topAlert.textContent = message;
+    topAlert.classList.add('show');
+
+    clearTimeout(alertTimeout);
+    alertTimeout = setTimeout(()=>{
+        topAlert.classList.remove('show');
+    }, 8000);
+}
+
+
+// ============================
+// Загрузка данных
+// ============================
 async function loadUserData(){
     try{
         const response = await fetch(`http://127.0.0.1:5000/user/${userId}`);
@@ -221,34 +278,81 @@ async function loadUserData(){
 
         rubBalance = data.rub || 0;
         usdtBalance = data.usdt || 0;
-        if(data.trading_volume){ /* можно использовать при желании */ }
 
         rubBalanceText.textContent = rubBalance.toFixed(2) + ' ₽';
         usdtBalanceText.textContent = usdtBalance.toFixed(2) + ' $';
 
-        // если сервер прислал курс, можно обновить
-        if(data.usdt > 0 && data.rub > 0){
-            rate = data.usdt / data.rub; // курс RUB → USDT
-        }
-
         updateRate(parseFloat(amountInput.value) || 0);
     } catch(err){
-        console.error('Ошибка при загрузке данных пользователя:', err);
+        console.error('Ошибка при загрузке данных:', err);
     }
 }
 
-// --- Обновление текста курса ---
+
+// ============================
+// Обновление курса
+// ============================
 function updateRate(value=0){
     if(!swapped){
         const usdt = value * rate;
-        rateText.textContent = `Курс: 1 RUB = ${rate.toFixed(6)} USDT | Получите: ${usdt.toFixed(2)} USDT`;
+        rateText.textContent =
+            `Курс: 1 RUB = ${rate.toFixed(6)} USDT | Получите: ${usdt.toFixed(2)} USDT`;
     } else {
         const rub = value / rate;
-        rateText.textContent = `Курс: 1 USDT = ${(1/rate).toFixed(6)} ₽ | Получите: ${rub.toFixed(2)} ₽`;
+        rateText.textContent =
+            `Курс: 1 USDT = ${(1/rate).toFixed(6)} ₽ | Получите: ${rub.toFixed(2)} ₽`;
     }
 }
 
-// --- События ---
+
+// ============================
+// Обмен
+// ============================
+exchangeBtn.addEventListener('click', ()=>{
+
+    const amount = parseFloat(amountInput.value) || 0;
+
+    if(amount <= 0){
+        showAlert("Введите сумму для обмена");
+        return;
+    }
+
+    // если RUB → USDT
+    if(!swapped){
+        if(rubBalance <= 0 || amount > rubBalance){
+            showAlert("Недостаточно средств на RUB счёте");
+            return;
+        }
+
+        rubBalance -= amount;
+        usdtBalance += amount * rate;
+    }
+
+    // если USDT → RUB
+    else{
+        if(usdtBalance <= 0 || amount > usdtBalance){
+            showAlert("Недостаточно средств на USDT счёте");
+            return;
+        }
+
+        usdtBalance -= amount;
+        rubBalance += amount / rate;
+    }
+
+    // обновляем интерфейс
+    rubBalanceText.textContent = rubBalance.toFixed(2) + ' ₽';
+    usdtBalanceText.textContent = usdtBalance.toFixed(2) + ' $';
+
+    amountInput.value = '';
+    updateRate(0);
+
+    showAlert("Обмен успешно выполнен");
+});
+
+
+// ============================
+// События
+// ============================
 amountInput.addEventListener('input', ()=>{
     const value = parseFloat(amountInput.value) || 0;
     updateRate(value);
@@ -257,11 +361,13 @@ amountInput.addEventListener('input', ()=>{
 swapBtn.addEventListener('click', ()=>{
     swapped = !swapped;
     amountInput.value = '';
+
     if(swapped){
         exchangeTitle.textContent = 'Обменять USDT на RUB';
     } else {
         exchangeTitle.textContent = 'Обменять RUB на USDT';
     }
+
     updateRate(0);
 });
 
@@ -271,7 +377,6 @@ selectAllBtn.addEventListener('click', ()=>{
     updateRate(value);
 });
 
-// --- Загрузка данных при старте ---
 window.addEventListener('DOMContentLoaded', loadUserData);
 </script>
 </body>
