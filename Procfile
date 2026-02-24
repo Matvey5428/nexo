@@ -1,1 +1,0 @@
-web: python telegram_bot/server.py
