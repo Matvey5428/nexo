@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Git commit and push race condition fixes",
+			"type": "shell",
+			"command": "cd nexo-trade && git add -A && git commit -m \"Fix race conditions in all balance operations - add FOR UPDATE locks\" && git push",
+			"isBackground": false
+		}
+	]
+}
